@@ -1,12 +1,11 @@
 <?php
-// Koneksi DB dimatikan sementara supaya login bypass tidak terganggu error database
-// require_once __DIR__ . '/config/koneksi.php';
+
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Kalau sudah login, langsung ke dashboard
+
 if (!empty($_SESSION['id_user'])) {
     header('Location: dashboard.php');
     exit;
@@ -15,23 +14,20 @@ if (!empty($_SESSION['id_user'])) {
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Menangkap inputan dari form
-    $nama = trim($_POST['username'] ?? ''); // Kolom atas dipakai untuk Nama
-    $nim = trim($_POST['password'] ?? '');  // Kolom bawah dipakai untuk NIM
+    $nama = trim($_POST['username'] ?? ''); 
+    $nim = trim($_POST['password'] ?? '');  
 
     if ($nama === '' || $nim === '') {
         $error = 'Nama dan NIM wajib diisi.';
     } else {
-        // --- BYPASS LOGIC ---
-        // Tanpa cek database, langsung kita buatkan sesi loginnya
+        
         session_regenerate_id(true);
         
-        $_SESSION['id_user']      = rand(1, 999); // Beri ID acak
-        $_SESSION['nama_lengkap'] = $nama;        // Nama sesuai yang diketik di kolom pertama
-        $_SESSION['username']     = $nim;         // Username diset menggunakan NIM yang diketik
-        $_SESSION['role']         = 'admin';      // Langsung beri akses admin
-        
-        // Arahkan ke dashboard
+        $_SESSION['id_user']      = rand(1, 999); 
+        $_SESSION['nama_lengkap'] = $nama;        
+        $_SESSION['username']     = $nim;         
+        $_SESSION['role']         = 'admin';      
+
         header('Location: dashboard.php');
         exit;
     }
