@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['nama_lengkap'] = $nama;        
         $_SESSION['username']     = $nim;         
         $_SESSION['role']         = 'admin';      
-
         header('Location: dashboard.php');
         exit;
     }
@@ -74,7 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <button type="submit" class="btn btn-primary-custom w-100">
-                Masuk Dashboard
             </button>
         </form>
     </div>
